@@ -1,7 +1,31 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
-# home : HttpRequest -> HttpResponse
-# Defines output for traffic to the Blog home page
+posts = [
+    {
+        'author': 'James CD',
+        'title': 'Blog Post 1',
+        'content': 'First post content',
+        'date_posted': 'December 11, 2019'
+    },
+    {
+        'author': 'Pepper B.',
+        'title': 'Blog Post 2',
+        'content': 'Second post content',
+        'date_posted': 'December 7, 2019'
+    }
+]
+
+# func : HttpRequest -> HttpResponse
+# Defines output for traffic to each page
+
 def home(request):
-    return HttpResponse('<h1>Blog Home</h1>')
+    context = {
+        'posts': posts
+    }
+    return render(request, 'blog/home.html', context)
+
+def about(request):
+    context = {
+        'title': 'About'
+    }
+    return render(request, 'blog/about.html', context)

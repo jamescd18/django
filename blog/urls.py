@@ -5,5 +5,6 @@ from . import views
 # Based on the django_project urls.py file starter
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', views.home, name='blog-home'),
+    path('about/', views.about, name='blog-about'),
 ]
