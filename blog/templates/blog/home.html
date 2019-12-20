@@ -10,8 +10,13 @@
 			<small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
 						<!-- see Django documentation for date formatting -->
 		</div>
-		<h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+		<h3><a class="article-title" href="#">{{ post.title }}</a></h3>
 		<p class="article-content">{{ post.content }}</p>
+		<a class="text-muted" href="#">UpDoot</a>
+		<div class="media content-section">
+
+			<small class="text-muted">Insert comments here</small>
+		</div>
 	</div>
 </article>
 {% endfor %}

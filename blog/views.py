@@ -6,7 +6,8 @@ from .models import Post #in current package so '.' works
 
 def home(request):
     context = {
-        'posts': Post.objects.all()
+		'title': 'Home', # Adds custom title to browser tab label
+        'posts': Post.objects.all() # Grabs list of all posts
     }
     return render(request, 'blog/home.html', context)
 
