@@ -8,6 +8,7 @@ TO DO:
 	-	run Profiles database migrations
 	-	add back image field for profile image
 	-	upload images to Profiles
+	-	add default.jpg to media folder
 3.	Replace all dev implementations of images with production version
 	-	check project urls.py module
 
