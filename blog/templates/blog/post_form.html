@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+<!-- \{\% load crispy_forms_tags \%\} -->
+
+{% block content %}
+    <div class="content-section">
+		<form method="POST">
+			{% csrf_token %} <!-- Django required security feature -->
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">What's on your mind?</legend>
+				{{ form.as_p }} <!-- \{\{ \form\|crispy \}\} -->
+			</fieldset>
+			<div class="form-group">
+				<button type="btn btn-outline-info" type="submit" name="post-btn">Post It!</button>
+			</div>
+		</form>
+    </div>
+{% endblock content %}

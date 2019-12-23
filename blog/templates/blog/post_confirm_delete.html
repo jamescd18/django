@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <div class="content-section">
+		<form method="POST">
+			{% csrf_token %} <!-- Django required security feature -->
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Delete Post</legend>
+				<h2>Are you sure you want to delete the post "{{ post.title }}"?</h2>
+			</fieldset>
+			<div class="form-group">
+				<button type="btn btn-outline-danger" type="submit" name="delete-btn">Delete It!</button>
+				<a type="btn btn-outline-secondary" name="canel-btn" href="{% url 'post-detail' post.id %}">Cancel</a>
+			</div>
+		</form>
+    </div>
+{% endblock content %}

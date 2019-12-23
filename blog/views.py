@@ -1,6 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import (
+	ListView, DetailView, CreateView,
+	UpdateView, DeleteView
+)
 from .models import Post #in current package so '.' works
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # func : HttpRequest -> HttpResponse
 # Defines output for traffic to each page
@@ -21,6 +25,39 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
 	model = Post
 	context_object_name = 'post'
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+	model = Post
+	context_object_name = 'post'
+	fields = ['title', 'content']
+
+	def form_valid(self, form):
+		# override parent method to set author first
+		form.instance.author = self.request.user
+		return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+	model = Post
+	context_object_name = 'post'
+	fields = ['title', 'content']
+
+	def form_valid(self, form):
+		# override parent method to set author first
+		form.instance.author = self.request.user
+		return super().form_valid(form)
+
+	def test_func(self):
+		post = self.get_object()
+		return self.request.user == post.author
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+	model = Post
+	context_object_name = 'post'
+	success_url = '/'
+
+	def test_func(self):
+		post = self.get_object()
+		return self.request.user == post.author
 
 def about(request):
     context = {
