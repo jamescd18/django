@@ -1,0 +1,29 @@
+TO DO:
+1.	Add crispy forms
+	⁃	pip install django-crispy-forms
+	⁃	settings.py add to installed apps, add template setting
+	⁃	register.html add import & replace form placement tags
+2.	Add Pillow
+	-	pip install Pillow
+	-	run Profiles database migrations
+	-	add back image field for profile image
+	-	upload images to Profiles
+3.	Replace all dev implementations of images with production version
+	-	check project urls.py module
+
+
+
+
+
+How To:
+1.	Database changes
+	-	Change models.py file as desired
+	-	in command line: python3 manage.py makemigrations
+	-					 python3 manage.py migrate
+	-	in admin.py file for associated app: import & user
+				from .models import X
+				admin.site.register(X)
+2. Shell usage
+	-	all in command line: python3 manage.py shell
+	-	for database inspection/interaction: from django.contrib.auth.models import User
+	-	user = User.objects.all or objects.filter() and maybe .first()
