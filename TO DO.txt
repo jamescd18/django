@@ -11,6 +11,7 @@ TO DO:
 	-	add default.jpg to media folder
 3.	Replace all dev implementations of images with production version
 	-	check project urls.py module
+4.	
 
 
 
