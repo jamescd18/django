@@ -5,6 +5,6 @@ Packages / 3rd Party Things Used:
  - django
  - bootstrap
  - CoreyMS tutorial series
- - * Crispy forms
- - * Pillow
+ - Crispy forms *
+ - Pillow *
  - 
