@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import (
 	ListView, DetailView, CreateView,
 	UpdateView, DeleteView
@@ -16,11 +16,16 @@ def home(request):
     }
     return render(request, 'blog/home.html', context)
 
+def updoot(request, **kwargs):
+	pk = kwargs['pk']
+	Post.objects.filter(id=pk).first().upDoot()
+	return redirect('/')
+
 class PostListView(ListView):
 	model = Post
 	template_name = 'blog/home.html' # <app>/<model>_<viewtype>.html
 	context_object_name = 'posts'
-	ordering = ['-date_posted'] #'-' indicates newest to oldest
+	ordering = ['-updoots', '-date_posted'] #'-' indicates newest to oldest
 
 class PostDetailView(DetailView):
 	model = Post

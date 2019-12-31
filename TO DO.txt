@@ -1,7 +1,5 @@
 TO DO:
 1.	Add crispy forms
-	⁃	pip install django-crispy-forms
-	⁃	settings.py add to installed apps, add template setting
 	⁃	register.html add import & replace form placement tags
 2.	Add Pillow
 	-	pip install Pillow
@@ -11,7 +9,7 @@ TO DO:
 	-	add default.jpg to media folder
 3.	Replace all dev implementations of images with production version
 	-	check project urls.py module
-4.	
+4.
 
 
 
@@ -22,7 +20,7 @@ How To:
 	-	Change models.py file as desired
 	-	in command line: python3 manage.py makemigrations
 	-					 python3 manage.py migrate
-	-	in admin.py file for associated app: import & user
+	-	in admin.py file for associated app: import & user (for new table)
 				from .models import X
 				admin.site.register(X)
 2. Shell usage

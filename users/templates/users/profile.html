@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-<!-- \{\% load crispy_forms_tags \%\} -->
+{% load crispy_forms_tags %}
 
 {% block content %}
 	<div class="content-section">
@@ -16,11 +16,11 @@
 			{% csrf_token %} <!-- Django required security feature -->
 			<fieldset class="form-group">
 				<legend class="border-bottom mb-4">Profile Info</legend>
-				{{ u_form.as_p }} <!-- \{\{ \form\|crispy \}\} -->
-				{{ p_form.as_p }} <!-- \{\{ \form\|crispy \}\} -->
+				{{ u_form|crispy }}
+				{{ p_form|crispy }}
 			</fieldset>
 			<div class="form-group">
-				<button type="btn btn-outline-info" type="submit" name="sign-up-btn">Update</button>
+				<button class="btn btn-outline-info" type="submit" name="sign-up-btn">Update</button>
 			</div>
 		</form>
 	</div>
