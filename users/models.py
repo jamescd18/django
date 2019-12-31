@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from PIL import Image
+from PIL import Image
 
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	# image = models.ImageField(default='default.jpeg', upload_to='profile-pics')
+	image = models.ImageField(default='default.jpeg', upload_to='profile-pics')
 	bio = models.TextField()
 
 	def __str__(self):
@@ -12,8 +12,6 @@ class Profile(models.Model):
 
 	def save(self):
 		super().save()
-
-		'''
 		img = Image.open(self.image.path)
 
 		if img.height > 300 or img.width > 300:
@@ -21,4 +19,3 @@ class Profile(models.Model):
 			output_size = (300, 300)
 			img.thumbnail(output_size)
 			img.save(self.image.path)
-		'''
