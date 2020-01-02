@@ -19,7 +19,12 @@ def home(request):
 def updoot(request, **kwargs):
 	pk = kwargs['pk']
 	Post.objects.filter(id=pk).first().upDoot()
-	return redirect('/')
+	origin = kwargs['origin']
+	if origin == "home":
+		output = redirect('/')
+	elif origin == "detail":
+		output = redirect('/post/'+str(pk))
+	return output
 
 class PostListView(ListView):
 	model = Post

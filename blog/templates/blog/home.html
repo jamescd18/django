@@ -14,7 +14,7 @@
 				<h3><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h3>
 				<p class="article-content">{{ post.content }}</p>
 				<a class="btn btn-outline-success btn-sm disabled mr-1">{{ post.updoots }}</a>
-				<a class="btn btn-outline-success btn-sm mt-1 mb-1" href="{% url 'post-updoot' post.id %}">UpDoot</a>
+				<a class="btn btn-outline-success btn-sm mt-1 mb-1" href="{% url 'post-updoot' post.id 'home' %}">UpDoot</a>
 				{% if post.author == user %}
 					<a class="btn btn-secondary btn-sm mt-1 mb-1 ml-2" href="{% url 'post-update' post.id %}">Edit</a>
 					<a class="btn btn-danger btn-sm mt-1 mb-1 ml-2" href="{% url 'post-delete' post.id %}">Delete</a>
