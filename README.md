@@ -7,10 +7,6 @@ Packages / 3rd Party Things Used:
  - CoreyMS tutorial series
  - Crispy forms *
  - Pillow *
-<<<<<<< HEAD
  -
 
 This * indicates Python3 packages installed for functionality.
-=======
- - 
->>>>>>> d18f77189676c88c36bbf9b40f1a72831a8dab3c
