@@ -3,9 +3,12 @@ from django.views.generic import (
 	ListView, DetailView, CreateView,
 	UpdateView, DeleteView
 )
-from .models import Post #in current package so '.' works
+from .models import Post, Comment #in current package so '.' works
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .forms import CommentPostForm
+from django.contrib import messages
 
 # func : HttpRequest -> HttpResponse
 # Defines output for traffic to each page
@@ -17,9 +20,10 @@ def home(request):
     }
     return render(request, 'blog/home.html', context)
 
+@login_required
 def updoot(request, **kwargs):
 	pk = kwargs['pk']
-	Post.objects.filter(id=pk).first().upDoot()
+	Post.objects.get(id=pk).upDoot()
 	origin = kwargs['origin']
 	if origin == "home":
 		output = redirect('/')
@@ -44,9 +48,25 @@ class UserPostListView(ListView):
 		user = get_object_or_404(User, username=self.kwargs.get('username'))
 		return Post.objects.filter(author=user).order_by('-updoots', '-date_posted')
 
-class PostDetailView(DetailView):
-	model = Post
-	context_object_name = 'post'
+def postDetail(request, **kwargs):
+	post = get_object_or_404(Post, id=kwargs.get('pk'))
+	if request.method == 'POST':
+		c_form = CommentPostForm(request.POST, instance=request.user)
+		if c_form.is_valid(request, post):
+			com = Comment(post=post, author=request.user,
+						  content=c_form.cleaned_data.get('content'))
+			com.save()
+			messages.success(request, f'Comment posted!')
+			return redirect('post-detail', kwargs.get('pk')) # So won't re-run post request if page reloaded
+	else:
+		c_form = CommentPostForm(instance=request.user)
+	context = {
+		'title': post.title,
+		'post': post,
+		'comments': Comment.objects.filter(post=post),
+		'c_form': c_form
+	}
+	return render(request, 'blog/post_detail.html', context)
 
 class PostCreateView(LoginRequiredMixin, CreateView):
 	model = Post

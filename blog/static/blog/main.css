@@ -36,6 +36,12 @@ ul {
   margin-bottom: 20px;
 }
 
+.comment-img {
+  height: 5px;
+  width: 5px;
+  margin-right: 5px;
+}
+
 .article-title {
   color: #444444;
 }
