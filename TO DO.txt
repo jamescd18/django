@@ -1,5 +1,5 @@
 TO DO:
-1.
+1.	Set up proper email server usage for user password reset emails
 2.
 3.	Replace all dev implementations of images with production version
 	-	check project urls.py module
