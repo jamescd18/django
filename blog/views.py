@@ -16,7 +16,7 @@ from django.contrib import messages
 def home(request):
     context = {
 		'title': 'Home', # Adds custom title to browser tab label
-        'posts': Post.objects.all() # Grabs list of all posts
+        'posts': Post.objects.all().order_by('-updoots', '-date_posted')
     }
     return render(request, 'blog/home.html', context)
 
