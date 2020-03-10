@@ -48,6 +48,7 @@ class UserPostListView(ListView):
 		user = get_object_or_404(User, username=self.kwargs.get('username'))
 		return Post.objects.filter(author=user).order_by('-updoots', '-date_posted')
 
+@login_required
 def postDetail(request, **kwargs):
 	post = get_object_or_404(Post, id=kwargs.get('pk'))
 	if request.method == 'POST':
