@@ -9,14 +9,20 @@ TO DO:
 
 
 How To:
-1.	Database changes
+1.	Run the server
+	-	Navigate to the proper folder with all the files via command line
+	-	Use command: python3 manage.py runserver
+	-	To quit: Control + C
+2.  Database changes
 	-	Change models.py file as desired
 	-	in command line: python3 manage.py makemigrations
 	-					 python3 manage.py migrate
 	-	in admin.py file for associated app: import & user (for new table)
 				from .models import X
 				admin.site.register(X)
-2. Shell usage
+3. Shell usage
 	-	all in command line: python3 manage.py shell
-	-	for database inspection/interaction: from django.contrib.auth.models import User
+	-	for database inspection/interaction:
+		-	from django.contrib.auth.models import User
+		-	from blog.models import Post
 	-	user = User.objects.all or objects.filter() and maybe .first()

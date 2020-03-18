@@ -2,7 +2,7 @@
 
 {% block content %}
 	<h1>Blog Home!</h1>
-	{% for post in posts %} <!-- 'posts' is key in context dict -->
+	{% for post in page_obj %} <!-- 'posts' is key in context dict -->
 		<article class="media content-section">
 			<img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
 			<div class="media-body">
@@ -22,18 +22,21 @@
 				<div class="media content-section">
 					<div class="col">
 						{% for comment in comments %}
-							<div class="row">
-								<a class="mr-1" href="{% url 'user-posts' comment.author.username %}">{{ comment.author }}</a>
-								<small class="mt-1 text-muted">{{ comment.content }}</small>
-							</div>
+							{% if comment.post == post %}
+								<div class="row">
+									<a class="mr-1" href="{% url 'user-posts' comment.author.username %}">{{ comment.author }}</a>
+									<small class="mt-1 text-muted">{{ comment.content }}</small>
+								</div>
+							{% endif %}
 						{% endfor %}
 					</div>
 				</div>
 			</div>
 		</article>
 	{% endfor %}
-
-	{% if is_paginated %}	<!-- Pagination elements -->
+	<small>Pages: {{ numpages }}</small>
+	<small>Pagination: {{ is_paginated }}</small>
+	{% if page_obj.is_paginated %}	<!-- Pagination elements -->
 		<nav class="row justify-content-center" aria-label="Blog post pages">
 			<ul class="pagination">
 				{% if page_obj.has_previous %}	<!-- Prev/First Buttons -->
@@ -52,7 +55,7 @@
 				{% endfor %}
 				{% if page_obj.has_next %}	<!-- Next/Last Buttons -->
 					<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
-					<li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+					<li class="page-item"><a class="page-link" href="?page=last">Last</a></li>
 				{% else %}	<!-- Disabled Next/Last Buttons -->
 					<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
 					<li class="page-item disabled"><a class="page-link" href="">Last</a></li>

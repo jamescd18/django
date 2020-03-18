@@ -9,16 +9,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import CommentPostForm
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 # func : HttpRequest -> HttpResponse
 # Defines output for traffic to each page
 
-def home(request):
-    context = {
-		'title': 'Home', # Adds custom title to browser tab label
-        'posts': Post.objects.all().order_by('-updoots', '-date_posted')
-    }
-    return render(request, 'blog/home.html', context)
+# Old home method, see "PostListView" class
+#def home(request):
+#    context = {
+#		'title': 'Home', # Adds custom title to browser tab label
+#        'posts': Post.objects.all().order_by('-updoots', '-date_posted')
+#    }
+#    return render(request, 'blog/home.html', context)
 
 @login_required
 def updoot(request, **kwargs):
@@ -34,19 +36,31 @@ def updoot(request, **kwargs):
 class PostListView(ListView):
 	model = Post
 	template_name = 'blog/home.html' # <app>/<model>_<viewtype>.html
-	context_object_name = 'posts'
 	ordering = ['-updoots', '-date_posted'] #'-' indicates newest to oldest
 	paginate_by = 5
+	paginate_orphans = 2
+
+	def get_context_data(self, **kwargs):
+		posts = Post.objects.all()
+		pages = Paginator(object_list=posts, per_page=5, orphans=2)
+		context = {
+			'numpages': kwargs.get('page'),
+			'page_obj': pages.get_page(kwargs.get('page')),
+			'comments': Comment.objects.all()
+		}
+		return context
 
 class UserPostListView(ListView):
 	model = Post
 	template_name = 'blog/user_posts.html' # <app>/<model>_<viewtype>.html
 	context_object_name = 'posts'
 	paginate_by = 5
+	paginate_orphans = 2
 
 	def get_queryset(self):
 		user = get_object_or_404(User, username=self.kwargs.get('username'))
-		return Post.objects.filter(author=user).order_by('-updoots', '-date_posted')
+		querySet = Post.objects.filter(author=user).order_by('-updoots', '-date_posted')
+		return querySet
 
 @login_required
 def postDetail(request, **kwargs):
